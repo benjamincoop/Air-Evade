@@ -1,0 +1,17 @@
+airplane sprite textures:
+	https://www.gameart2d.com/free-plane-sprite.html, CC0
+	
+background texture:
+	https://www.gameart2d.com/free-platformer-game-tileset.html, CC0
+	
+missile sprite body texture:
+	https://opengameart.org/content/missile-pack, user "daadau", CC-BY 3.0
+	
+missile sprite flame texture:
+	https://opengameart.org/content/fire-blast, user "Cookie", CC-BY 3.0
+	
+game music:
+	https://opengameart.org/content/the-tread-of-war-rpg-orchestral-essentials-military-music, Jonathan Shaw, user "InspectorJ", CC-BY 3.0
+	
+Explosion sound:
+	https://opengameart.org/content/2-high-quality-explosions, Michel Baradari, user "qubodup", CC-BY 3.0
