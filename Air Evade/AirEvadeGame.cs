@@ -115,7 +115,7 @@ namespace Air_Evade
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            gameFont = Content.Load<SpriteFont>("font");
+            gameFont = Content.Load<SpriteFont>("VT323");
             gameMusic = Content.Load<SoundEffect>("music");
             gameMusicInstance = gameMusic.CreateInstance();
 

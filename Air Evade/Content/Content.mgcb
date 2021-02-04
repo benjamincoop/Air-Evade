@@ -175,13 +175,6 @@
 /processorParam:TextureFormat=Color
 /build:fly2.png
 
-#begin font.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:font.spritefont
-
 #begin missile.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -259,4 +252,11 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:shoot5.png
+
+#begin VT323.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:VT323.spritefont
 
