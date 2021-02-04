@@ -94,9 +94,11 @@ namespace Air_Evade
                 BaseGame.Content.Load<Texture2D>("explosion7"),
                 BaseGame.Content.Load<Texture2D>("explosion8")
             };
+
             explosionSound = BaseGame.Content.Load<SoundEffect>("explode");
-            CollisionBox = new CollisionHelper.BoundingRectangle(this, 0.5f);
+            
             Size = new Vector2(BaseTexture.Width * ScaleFactor, BaseTexture.Height * ScaleFactor);
+            CollisionBox = new CollisionHelper.BoundingRectangle(Position, Size * 0.75f);
         }
 
         /// <summary>
@@ -158,7 +160,8 @@ namespace Air_Evade
                 }
                 else
                 {
-                    CollisionBox.UpdatePosition();
+                    // Update location of CollisionBox to the center of sprite
+                    CollisionBox.Position = new Vector2(Position.X + (Size.X - CollisionBox.Size.X) / 2, Position.Y + (Size.Y - CollisionBox.Size.Y) / 2);
                 }
             }
         }
@@ -168,10 +171,7 @@ namespace Air_Evade
         /// </summary>
         public void Detonate()
         {
-            if(detonating == false)
-            {
-                explosionSound.Play();
-            }
+            if(detonating == false) explosionSound.Play();
             detonating = true;
             Speed = 0;
             Rotation = 0f;

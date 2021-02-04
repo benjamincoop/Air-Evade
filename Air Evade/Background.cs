@@ -61,10 +61,7 @@ namespace Air_Evade
         {
             Position = new Vector2(Position.X - Speed, 0);
 
-            if(Position.X < -1 * BaseTexture.Width)
-            {
-                Position = new Vector2(BaseTexture.Width - xOffset, 0);
-            }
+            if(Position.X < -1 * BaseTexture.Width) Position = new Vector2(BaseTexture.Width - xOffset, 0);
         }
     }
 }

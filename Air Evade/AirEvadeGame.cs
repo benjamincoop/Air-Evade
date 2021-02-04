@@ -119,10 +119,7 @@ namespace Air_Evade
             gameMusic = Content.Load<SoundEffect>("music");
             gameMusicInstance = gameMusic.CreateInstance();
 
-            foreach (Background bg in background)
-            {
-                bg.LoadContent();
-            }
+            foreach (Background bg in background) bg.LoadContent();
             player.LoadContent();
         }
 
@@ -160,7 +157,7 @@ namespace Air_Evade
                     {
                         missiles[i].Move();
                         // Check for collisions and handle Game Over events
-                        if (missiles[i].CollisionBox.CollidesWith(player))
+                        if (missiles[i].CollisionBox.CollidesWith(player.CollisionBox))
                         {
                             missiles[i].Detonate();
                             GameOver();
@@ -172,10 +169,8 @@ namespace Air_Evade
                     }
                 }
                 // If there aren't enough missiles on screen, spawn more until there are
-                if (missiles.Count < difficulty)
-                {
-                    SpawnMissiles(1);
-                }
+                if (missiles.Count < difficulty) SpawnMissiles(1);
+
                 base.Update(gameTime);
 
                 // Handle fade out of game music
@@ -192,10 +187,7 @@ namespace Air_Evade
                 }
 
                 // Restart game upon input from player
-                if(isGameOver && inputManager.Restarting)
-                {
-                    Restart();
-                }
+                if(isGameOver && inputManager.Restarting) Restart();
             }
         }
 
@@ -249,10 +241,7 @@ namespace Air_Evade
         {
             player.State = Player.PlayerState.DEAD;
             difficulty = 0;
-            foreach (Background bg in background)
-            {
-                bg.Speed = 0;
-            }
+            foreach (Background bg in background) bg.Speed = 0;
         }
 
         /// <summary>
@@ -265,17 +254,11 @@ namespace Air_Evade
 
             spriteBatch.Begin();
 
-            foreach (Background bg in background)
-            {
-                bg.Draw(spriteBatch);
-            }
+            foreach (Background bg in background) bg.Draw(spriteBatch);
 
             player.Draw(spriteBatch);
 
-            foreach (Missile missile in missiles)
-            {
-                missile.Draw(spriteBatch);
-            }
+            foreach (Missile missile in missiles) missile.Draw(spriteBatch);
 
             spriteBatch.DrawString(gameFont, "Score: " + score.ToString(), new Vector2(5, 5), Color.Black);
 

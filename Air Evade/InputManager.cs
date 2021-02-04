@@ -58,18 +58,12 @@ namespace Air_Evade
                 * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             // Check if player is using gamepad
-            if(Direction != Vector2.Zero)
-            {
-                PreferGamePad = true;
-            }
+            if(Direction != Vector2.Zero) PreferGamePad = true;
             #endregion
 
             #region Keyboard input
             // Check if player is using keyboard
-            if(currentKeyboardState.GetPressedKeyCount() > 0)
-            {
-                PreferGamePad = false;
-            }
+            if(currentKeyboardState.GetPressedKeyCount() > 0) PreferGamePad = false;
 
             // Check input on WASD and arrow keys
             if (currentKeyboardState.IsKeyDown(Keys.Up) || currentKeyboardState.IsKeyDown(Keys.W))
@@ -91,10 +85,7 @@ namespace Air_Evade
             #endregion
 
             #region Exit detection
-            if (currentGamePadState.Buttons.Back == ButtonState.Pressed || currentKeyboardState.IsKeyDown(Keys.Escape))
-            {
-                Exit = true;
-            }
+            if (currentGamePadState.Buttons.Back == ButtonState.Pressed || currentKeyboardState.IsKeyDown(Keys.Escape)) Exit = true;
             #endregion
 
             #region Restart detection
