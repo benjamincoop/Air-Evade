@@ -7,7 +7,7 @@ namespace Air_Evade
     /// <summary>
     /// Defines a base class that all sprites inherit
     /// </summary>
-    class Sprite
+    public class Sprite
     {
         /// <summary>
         /// The game this sprite is a part of

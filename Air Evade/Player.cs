@@ -79,8 +79,8 @@ namespace Air_Evade
             };
             BaseTexture = BaseGame.Content.Load<Texture2D>("dead");
 
-            CollisionBox = new CollisionHelper.BoundingRectangle(this, 0.5f);
             Size = new Vector2(BaseTexture.Width * ScaleFactor, BaseTexture.Height * ScaleFactor);
+            CollisionBox = new CollisionHelper.BoundingRectangle(Position, Size * 0.75f);
         }
 
         /// <summary>
@@ -116,24 +116,13 @@ namespace Air_Evade
             }
 
             // Enforce screen boundries
-            if (Position.X < 0)
-            {
-                Position = new Vector2(1, Position.Y);
-            }
-            if (Position.X + Size.X > BaseGame.GraphicsDevice.Viewport.Width)
-            {
-                Position = new Vector2(BaseGame.GraphicsDevice.Viewport.Width - (Size.X + 1), Position.Y);
-            }
-            if (Position.Y < 0)
-            {
-                Position = new Vector2(Position.X, 1);
-            }
-            if (Position.Y + Size.Y > BaseGame.GraphicsDevice.Viewport.Height)
-            {
-                Position = new Vector2(Position.X, BaseGame.GraphicsDevice.Viewport.Height - (Size.Y + 1));
-            }
+            if (Position.X < 0) Position = new Vector2(1, Position.Y);
+            if (Position.X + Size.X > BaseGame.GraphicsDevice.Viewport.Width) Position = new Vector2(BaseGame.GraphicsDevice.Viewport.Width - (Size.X + 1), Position.Y);
+            if (Position.Y < 0) Position = new Vector2(Position.X, 1);
+            if (Position.Y + Size.Y > BaseGame.GraphicsDevice.Viewport.Height) Position = new Vector2(Position.X, BaseGame.GraphicsDevice.Viewport.Height - (Size.Y + 1));
 
-            CollisionBox.UpdatePosition();
+            // Update location of CollisionBox to the center of sprite
+            CollisionBox.Position = new Vector2(Position.X + (Size.X - CollisionBox.Size.X) / 2, Position.Y + (Size.Y - CollisionBox.Size.Y) / 2);
         }
 
         /// <summary>
@@ -160,10 +149,7 @@ namespace Air_Evade
                     }
                     return flyTexture[animIndex];
                 case PlayerState.SHOOTING:
-                    if (animIndex > 4)
-                    {
-                        animIndex = 0;
-                    }
+                    if (animIndex > 4) animIndex = 0;
                     return shootTexture[animIndex];
                 case PlayerState.DEAD:
                     return BaseTexture;
