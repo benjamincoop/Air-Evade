@@ -149,6 +149,7 @@ namespace Air_Evade
         protected override void Update(GameTime gameTime)
         {
 
+            // Get latest input from manager
             inputManager.Update(gameTime);
 
             if (inputManager.Exit)
@@ -156,28 +157,41 @@ namespace Air_Evade
                 Exit();
             } else
             {
+                // Update player position
                 player.Move(inputManager.Direction);
 
-                // If any missiles are inactive, remove the reference to them
+                // Iterating through list of active missiles
                 for (int i = 0; i < missiles.Count; i++)
                 {
+                    // If missile is active, do stuff with it
                     if (missiles[i].Active)
                     {
+                        // Update missile position
                         missiles[i].Move();
-                        // Check for collisions and handle Game Over events
-                        if (missiles[i].CollisionBox.CollidesWith(player.CollisionBox))
+
+                        // If a missile flies offscreen, disable it and increase score
+                        if(missiles[i].Position.X < 0)
                         {
-                            missiles[i].Detonate();
-                            GameOver();
-                        }
+                            missiles[i].Active = false;
+                            IncrementScore();
+                        } else
+                        {
+                            // Check for collisions and handle Game Over events
+                            if (missiles[i].CollisionBox.CollidesWith(player.CollisionBox))
+                            {
+                                missiles[i].Detonate();
+                                GameOver();
+                            }
+                        }  
                     }
+                    // If missile is inactive, remove it from the list
                     else
                     {
                         missiles.RemoveAt(i);
                     }
                 }
-                // If there aren't enough missiles on screen, spawn more until there are
-                if (missiles.Count < difficulty) SpawnMissiles(1);
+                // If there aren't enough missiles on screen, spawn another each frame until there are
+                if (missiles.Count < difficulty) SpawnMissile();
 
                 base.Update(gameTime);
 
@@ -200,15 +214,14 @@ namespace Air_Evade
         }
 
         /// <summary>
-        /// Increases score by the specified amount, also checks to see if it's time to raise the difficulty
+        /// Increments player score by one and increases difficulty if score is at a certain threshold
         /// </summary>
-        /// <param name="score"></param>
-        public void UpdateScore(int score)
+        private void IncrementScore()
         {
             if(player.State != Player.PlayerState.DEAD)
             {
-                this.score += score;
-                switch (this.score)
+                score++;
+                switch (score)
                 {
                     case 10:
                         difficulty++;
@@ -295,16 +308,12 @@ namespace Air_Evade
         }
 
         /// <summary>
-        /// Spawns the specified number of missiles with randomized locations and speeds.
+        /// Spawns a missile with a random velocity and Y-axis position
         /// </summary>
-        /// <param name="count"></param>
-        private void SpawnMissiles(int count)
+        private void SpawnMissile()
         {
-            for(int i=0; i<count; i++)
-            {
-                missiles.Add(new Missile(this, new Vector2(
+            missiles.Add(new Missile(this, new Vector2(
                     graphics.GraphicsDevice.Viewport.Width, random.Next(0, graphics.GraphicsDevice.Viewport.Height)), random.Next(20, 30), 0.06f));
-            }
         }
     }
 }

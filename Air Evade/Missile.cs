@@ -59,7 +59,7 @@ namespace Air_Evade
         /// <summary>
         /// Indicates if the missile is in active use. Inactive missiles should be ignored and garbage collected
         /// </summary>
-        public bool Active { get; private set; } = true;
+        public bool Active { get; set; } = true;
 
         public int Speed { get; set; }
         #endregion
@@ -151,18 +151,9 @@ namespace Air_Evade
                         Position = new Vector2(Position.X - Speed, Position.Y + frequency);
                     }
                 }
-
-                // Deactivate missile if it flies offscreen, otherwise update attached collision box
-                if (Position.X < -1)
-                {
-                    Active = false;
-                    ((AirEvadeGame)BaseGame).UpdateScore(1);
-                }
-                else
-                {
-                    // Update location of CollisionBox to the center of sprite
-                    CollisionBox.Position = new Vector2(Position.X + (Size.X - CollisionBox.Size.X) / 2, Position.Y + (Size.Y - CollisionBox.Size.Y) / 2);
-                }
+                
+                // Update location of CollisionBox to the center of sprite
+                CollisionBox.Position = new Vector2(Position.X + (Size.X - CollisionBox.Size.X) / 2, Position.Y + (Size.Y - CollisionBox.Size.Y) / 2);
             }
         }
 

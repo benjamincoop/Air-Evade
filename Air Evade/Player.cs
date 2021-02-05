@@ -14,11 +14,6 @@ namespace Air_Evade
         Texture2D[] flyTexture;
 
         /// <summary>
-        /// The textures to use for the player when firing weapon
-        /// </summary>
-        Texture2D[] shootTexture;
-
-        /// <summary>
         /// An index into the Texture2D arrays that gives the current sprite texture to draw 
         /// </summary>
         int animIndex = 0;
@@ -43,8 +38,8 @@ namespace Air_Evade
         /// <summary>
         /// The current state of the player instance
         /// </summary>
-        public enum PlayerState { IDLE, SHOOTING, DEAD }
-        public PlayerState State { get; set; } = PlayerState.IDLE;
+        public enum PlayerState { FLYING, DEAD }
+        public PlayerState State { get; set; } = PlayerState.FLYING;
         #endregion
 
         /// <summary>
@@ -68,14 +63,6 @@ namespace Air_Evade
             {
                 BaseGame.Content.Load<Texture2D>("fly1"),
                 BaseGame.Content.Load<Texture2D>("fly2")
-            };
-            shootTexture = new Texture2D[]
-            {
-                BaseGame.Content.Load<Texture2D>("shoot1"),
-                BaseGame.Content.Load<Texture2D>("shoot2"),
-                BaseGame.Content.Load<Texture2D>("shoot3"),
-                BaseGame.Content.Load<Texture2D>("shoot4"),
-                BaseGame.Content.Load<Texture2D>("shoot5")
             };
             BaseTexture = BaseGame.Content.Load<Texture2D>("dead");
 
@@ -142,15 +129,12 @@ namespace Air_Evade
 
             switch (State)
             {
-                case PlayerState.IDLE:
+                case PlayerState.FLYING:
                     if (animIndex > 1)
                     {
                         animIndex = 0;
                     }
                     return flyTexture[animIndex];
-                case PlayerState.SHOOTING:
-                    if (animIndex > 4) animIndex = 0;
-                    return shootTexture[animIndex];
                 case PlayerState.DEAD:
                     return BaseTexture;
                 default:
