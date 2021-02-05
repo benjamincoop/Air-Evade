@@ -98,7 +98,7 @@ namespace Air_Evade
             explosionSound = BaseGame.Content.Load<SoundEffect>("explode");
             
             Size = new Vector2(BaseTexture.Width * ScaleFactor, BaseTexture.Height * ScaleFactor);
-            CollisionBox = new CollisionHelper.BoundingRectangle(Position, Size * 0.75f);
+            CollisionBox = new CollisionHelper.BoundingRectangle(Position, Size * 0.5f);
         }
 
         /// <summary>
@@ -171,7 +171,11 @@ namespace Air_Evade
         /// </summary>
         public void Detonate()
         {
-            if(detonating == false) explosionSound.Play();
+            if (detonating == false)
+            {
+                Position = new Vector2(Position.X - 50, Position.Y);
+                explosionSound.Play();
+            }
             detonating = true;
             Speed = 0;
             Rotation = 0f;

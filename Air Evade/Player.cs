@@ -80,7 +80,7 @@ namespace Air_Evade
             BaseTexture = BaseGame.Content.Load<Texture2D>("dead");
 
             Size = new Vector2(BaseTexture.Width * ScaleFactor, BaseTexture.Height * ScaleFactor);
-            CollisionBox = new CollisionHelper.BoundingRectangle(Position, Size * 0.75f);
+            CollisionBox = new CollisionHelper.BoundingRectangle(Position, Size * 0.5f);
         }
 
         /// <summary>
