@@ -65,7 +65,15 @@ namespace Air_Evade
         /// </summary>
         private bool isGameOver = false;
 
+        /// <summary>
+        /// The player's current score
+        /// </summary>
         private int score = 0;
+
+        /// <summary>
+        /// The highest score a player has gotten on any run
+        /// </summary>
+        private int highScore = 0;
         #endregion
 
         public AirEvadeGame()
@@ -235,12 +243,13 @@ namespace Air_Evade
         }
 
         /// <summary>
-        /// Triggers a game over state
+        /// Handles the transition to a game over state
         /// </summary>
         private void GameOver()
         {
             player.State = Player.PlayerState.DEAD;
             difficulty = 0;
+            if (score > highScore) highScore = score;
             foreach (Background bg in background) bg.Speed = 0;
         }
 
@@ -261,9 +270,12 @@ namespace Air_Evade
             foreach (Missile missile in missiles) missile.Draw(spriteBatch);
 
             spriteBatch.DrawString(gameFont, "Score: " + score.ToString(), new Vector2(5, 5), Color.Black);
+            spriteBatch.DrawString(gameFont, "High Score: " + highScore.ToString(), new Vector2(
+                (graphics.GraphicsDevice.Viewport.Width) - (gameFont.MeasureString("High Score: " + highScore.ToString()).X + 5),
+                5), Color.Black);
 
             // Show restart prompt in the center of the screen upon defeat
-            if(isGameOver)
+            if (isGameOver)
             {
                 string promptStr;
                 if(inputManager.PreferGamePad)
